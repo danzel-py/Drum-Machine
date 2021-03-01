@@ -3,9 +3,11 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <div id="drum-machine">
-        <Drum />
+    <div className="outer">
+      <div className="middle unselectable">
+        <div id="drum-machine" className="inner">
+          <Drum />
+        </div>
       </div>
     </div>
   );
@@ -17,7 +19,7 @@ class Drum extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: '',
+      display: 'Keyboard friendly',
       padsInfo: [
         {
           number: 1,
@@ -61,18 +63,21 @@ class Drum extends React.Component {
   }
 
 
-  handleEnter(test) {
-    this.setState(() => ({ display: test }))
-    document.getElementById(test).load()
-    document.getElementById(test).play()
+  handleEnter(key) {
+    this.setState(() => ({ display: `${key}` }))
+    document.getElementById(key).load()
+    document.getElementById(key).play()
 
   }
 
   render() {
     return (
       <div id='containerBig'>
-                  <DrumPads info={this.state.padsInfo} passFunction={this.handleEnter} />
-        <Display toDisp = {this.state.display}/>
+        <DrumPads info={this.state.padsInfo} passFunction={this.handleEnter} />
+        <Display toDisp={this.state.display} />
+        <div id='title'>
+          Drum Machine
+        </div>
       </div>
     )
   }
@@ -152,8 +157,8 @@ class DrumPads extends React.Component {
 
   render() {
     return (
-      <div>
-        {this.props.info.map((eachpad, key) => (
+      <div id="drumpadcontainer">
+        {this.props.info.map((eachpad) => (
           <div className='drum-pad' id={this.soundNumber(eachpad.number)} onClick={() => this.click(eachpad.key)}>
             <audio src={this.srcNumber(eachpad.number)} className='clip' id={eachpad.key}></audio>
             {eachpad.key}
@@ -164,10 +169,10 @@ class DrumPads extends React.Component {
   }
 }
 
-function Display(props){
-  return(
+function Display(props) {
+  return (
     <div id="display">
-      {props.toDisp}
+      {props.toDisp === 'Keyboard friendly' ? <div class='placeholder'>Try pressing Q with your Keyboard!</div>: props.toDisp}
     </div>
   )
 }
