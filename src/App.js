@@ -172,7 +172,7 @@ class DrumPads extends React.Component {
 function Display(props) {
   return (
     <div id="display">
-      {props.toDisp === 'Keyboard friendly' ? <div class='placeholder'>Try pressing Q with your Keyboard!</div>: props.toDisp}
+      {props.toDisp === 'Keyboard friendly' ? <div class='placeholder'>Audio doesn't play because the test forbids using iframe </div>: props.toDisp}
     </div>
   )
 }
